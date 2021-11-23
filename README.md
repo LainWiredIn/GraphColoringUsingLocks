@@ -1,11 +1,12 @@
 # README
 ## GraphColoringUsingLocks
-Implementing Graph Coloring Algorithm using locks
+
+**Implementing Graph Coloring Algorithm using locks**
 
 
 ### DESCRIPTION
 -----------
-The OBJECTIVE is to implement the graph colouring algorithm in parallel using threads and synchronise them with the help of locks, in C++. Greedy coloring is used for this method.
+The <i>OBJECTIVE</i> is to implement the graph colouring algorithm in parallel using threads and synchronise them with the help of locks, in C++. Greedy coloring is used for this method.
 <br>
 Each thread is assigned a partition. The number of threads k is one of the input
 parameters. All the vertices (n being the total number of vertices) in the graph are randomly
@@ -13,19 +14,19 @@ partitioned into p partitions and each partition is assigned to a thread. P is e
 <br>
 In a partition, there are two kinds of vertices:
 <ol>
-	<li> Internal Vertex: Vertex having all the adjacent vertices in the same partition.</li>
-	<li> External Vertex: Vertex having one or more than one adjacent vertex in another partition.</li>
+	<li> <i>Internal Vertex</i>: Vertex having all the adjacent vertices in the same partition.</li>
+	<li> <i>External Vertex</i>: Vertex having one or more than one adjacent vertex in another partition.</li>
 </ol>
 <br>
 There are two ways of colouring boundary vertices using locks:
 <ol>
-<li> Coarse-Grained Lock: Here there is one common lock CL for all boundary vertices. For
+	<li> <i>Coarse-Grained Lock</i>: Here there is one common lock CL for all boundary vertices. For
 colouring any boundary vertex bvx, in one of its partitions, thread Thi has obtained the
 lock on CL. Assigns a colour to bvx in a greedy manner by looking at all the neighbours
 of bvx. Since Thi has obtained the lock on CL, it does not have to worry about
 synchronization with any of the threads that are responsible for any of the bvi’s
 	neighbours.</li>
-<li> Fine-Grained Locks: Here each vertex has an individual lock also denoted as a
+	<li> <i>Fine-Grained Locks</i>: Here each vertex has an individual lock also denoted as a
 fine-grained lock. When the thread Thi wishes to colour a boundary vertex bvx, it locks
 all the neighbours of bvx and bvx as well. It obtains the locks in an increasing (or
 decreasing) order of vertex ids to avoid deadlocks. After obtaining the locks, it assigns acolour to bvx after looking at the colours of vx’s neighbours in a greedy manner as
@@ -39,9 +40,13 @@ explained above. Again a vertex that is uncoloured is ignored.</li>
 The cpp files take input from a file named "input_params.txt" so make sure it is in the same folder as the source files. For this example, we'll show how to compile Src_coarse.cpp. Same steps could be used to create output for Src_fine.cpp.
 
 For compiling the program, open the terminal. Make sure you are in the directory containing "Src_coarse.cpp" & "input_params.txt". You should also have the "gcc g++ compiler" installed(look into build-essential if you are on Linux). Then enter the following command -  
+```
 						g++ -std=c++11 -pthread Src_coarse.cpp -o out
+```
 An output file by the name of "out" is created in the same directory. To run it, enter the following command - 
+```
 						./out
+```
 This will run the program and also create an output text file named "output.txt". You can check the total number of colors used, color for each vertex and the time taken in microseconds in the output.txt file.
 
 ### THE INPUT FILE
